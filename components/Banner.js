@@ -24,7 +24,7 @@ const Banner = () => {
         </div>
         <Image
           className="hidden h-32 md:inline-flex object-contain flex-1"
-          src={Logo.src}
+          src={Logo}
           height={400}
           width={500}
           alt="logo"

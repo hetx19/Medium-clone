@@ -26,7 +26,11 @@ const ReadersNav = () => {
         </div>
       </Link>
       <div className={styles.iconsContainer}>
-        <HiOutlineHome />
+        <Link href="/">
+          <a>
+            <HiOutlineHome />
+          </a>
+        </Link>
         <FiBell />
         <BiBookmarks />
         <RiArticleLine />

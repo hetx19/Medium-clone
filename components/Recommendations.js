@@ -34,10 +34,100 @@ const styles = {
 const Recommendations = ({ author }) => {
   return (
     <div className={styles.wrapper}>
-      <div></div>
-      Recommendations
+      <div className={styles.accentedButton}>Get unlimited access</div>
+      <div className={styles.searchBar}>
+        <AiOutlineSearch />
+        <input
+          className={styles.searchInput}
+          placeholder="Search"
+          type="text"
+        />
+      </div>
+
+      <div className={styles.authorContainer}>
+        <div className={styles.authorProfileImageContainer}>
+          <Image
+            // src={`https://res.cloudinary.com/demo/image/fetch/${author[0].data.imageUrl}`}
+            src={Qazi}
+            alt="author"
+            width={100}
+            height={100}
+          />
+        </div>
+        <div className={styles.authorName}>Harshal Savaliya</div>
+        <div className={styles.authorFollowing}>1M followers</div>
+        <div className={styles.authorActions}>
+          <button className={styles.actionButton}>Follow</button>
+          <button className={styles.actionButton}>
+            <MdMarkEmailUnread />
+          </button>
+        </div>
+      </div>
+      <div className={styles.recommendationContainer}>
+        <div className={styles.title}>More from Medium</div>
+        <div className={styles.articlesContainer}>
+          {recommendedPosts.map((post) => (
+            <div key={post.id} className={styles.articleContentWrapper}>
+              <div className={styles.articleContent}>
+                <div className={styles.recommendationAuthorContainer}>
+                  <div
+                    className={styles.recommendationAuthorProfileImageContainer}
+                  >
+                    <Image
+                      src={post.author.image}
+                      alt="author"
+                      height={100}
+                      width={100}
+                    />
+                  </div>
+                  <div className={styles.recommendationAuthorName}>
+                    {post.author.name}
+                  </div>
+                </div>
+                <div className={styles.recommendationTitle}>{post.title}</div>
+              </div>
+              <div className={styles.recommendationThumbnailContainer}>
+                <Image
+                  className={styles.recommendationThumbnail}
+                  src={post.image}
+                  alt="thumbnail"
+                  height={100}
+                  width={100}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Recommendations;
+
+const recommendedPosts = [
+  {
+    title: "What can you do with Replit?",
+    image: ReplitLogo,
+    author: {
+      name: "Harshal Savaliya",
+      image: CPLogo,
+    },
+  },
+  {
+    title: "The Ultimate JavaScript Course for Beginners by Clever Programmer",
+    image: TutorialImg,
+    author: {
+      name: "Sumit Savaliya",
+      image: Qazi,
+    },
+  },
+  {
+    title: "How to Become a Developer in 2022?",
+    image: JSLogo,
+    author: {
+      name: "Harshal Savaliya",
+      image: CPLogo,
+    },
+  },
+];

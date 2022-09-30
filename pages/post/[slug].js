@@ -1,6 +1,7 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import ReadersNav from "../../components/ReadersNav";
-// import ArticleMain from "../../components/ArticleMain";
+import ArticleMain from "../../components/ArticleMain";
 import Recommendations from "../../components/Recommendations";
 
 const styles = {
@@ -15,8 +16,12 @@ const Post = () => {
   return (
     <div>
       <main className={styles.content}>
+        <Head>
+          <title>Medium | Harshal Savaliya</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <ReadersNav />
-        {/* <ArticleMain post={post} author={author} /> */}
+        <ArticleMain />
         <Recommendations author={author} />
       </main>
     </div>
