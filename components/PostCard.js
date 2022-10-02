@@ -1,10 +1,9 @@
 import Image from "next/image";
-import Logo from "../static/logo.png";
 import Link from "next/link";
-import { FiBookmark } from "react-icons/fi";
 import { useState, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { FiBookmark } from "react-icons/fi";
 
 const styles = {
   wrapper: `max-w-[46rem] h-[10rem] flex items-center gap-[1rem] cursor-pointer`,
@@ -27,9 +26,7 @@ const PostCard = ({ post }) => {
 
   useEffect(() => {
     const getAuthorData = async () => {
-      setAuthorData(
-        await (await getDoc(doc(db, "users", post.data.author))).data()
-      );
+      setAuthorData((await getDoc(doc(db, "users", post.data.author))).data());
     };
 
     getAuthorData();
@@ -42,39 +39,34 @@ const PostCard = ({ post }) => {
           <div className={styles.authorContainer}>
             <div className={styles.authorImageContainer}>
               <Image
-                src={`https://res.cloudinary.com/demo/image/fetch/${authorData.imageUrl}`}
+                src={`https://res.cloudinary.com/demo/image/fetch/${authorData?.imageUrl}`}
+                alt="author"
                 className={styles.authorImage}
                 height={40}
                 width={40}
-                alt=""
               />
             </div>
-
-            <div className={styles.authorName}>Harshal Savaliya</div>
+            <div className={styles.authorName}>{authorData?.name}</div>
           </div>
-
-          <h1 className={styles.title}>
-            7 Free Tools That Will Make You More Productive In 2022
-          </h1>
-          <div className={styles.briefing}>
-            Porductivity is a skill that can be learned
-          </div>
-
+          <h1 className={styles.title}>{post.data.title}</h1>
+          <div className={styles.briefing}>{post.data.brief}</div>
           <div className={styles.detailsContainer}>
             <span className={styles.articleDetails}>
-              Jun 15 · 5 min read ·
-              <span className={styles.category}>Porductivity</span>
+              {new Date(post.data.postedOn).toLocaleString("en-US", {
+                day: "numeric",
+                month: "short",
+              })}
+              • {post.data.postLength} min read •{" "}
+              <span className={styles.category}>{post.data.category}</span>
             </span>
             <span className={styles.bookmarkContainer}>
               <FiBookmark className="h-5 w-5" />
             </span>
           </div>
         </div>
-
         <div className={styles.thumbnailContainer}>
           <Image
-            //   src={`https://res.cloudinary.com/demo/image/fetch/${post.data.bannerImage}`}
-            src={Logo}
+            src={`https://res.cloudinary.com/demo/image/fetch/${post.data.bannerImage}`}
             alt="thumbnail"
             height={100}
             width={100}

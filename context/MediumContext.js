@@ -9,6 +9,7 @@ export const MediumContext = createContext();
 export const MediumProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -56,8 +57,26 @@ export const MediumProvider = ({ children }) => {
     getPosts();
   }, []);
 
+  const addUserToFirebase = async (user) => {
+    await setDoc(doc(db, "users", user.email), {
+      email: user.email,
+      name: user.displayName,
+      imageUrl: user.photoURL,
+      followerCount: 0,
+    });
+  };
+
+  const handleUserAuth = async () => {
+    const userData = await signInWithPopup(auth, provider);
+    const user = userData.user;
+    setCurrentUser(user);
+    addUserToFirebase(user);
+  };
+
   return (
-    <MediumContext.Provider value={{ posts, users }}>
+    <MediumContext.Provider
+      value={{ posts, users, handleUserAuth, currentUser }}
+    >
       {children}
     </MediumContext.Provider>
   );

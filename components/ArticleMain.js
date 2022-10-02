@@ -31,7 +31,7 @@ const styles = {
   articleText: `font-mediumSerif text-[1.4rem] text-[#292929]`,
 };
 
-const ArticleMain = () => {
+const ArticleMain = ({ post, author }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
@@ -47,9 +47,15 @@ const ArticleMain = () => {
               />
             </div>
             <div className={styles.column}>
-              <div>Harshal Savaliya</div>
+              <div>{author?.data?.name}</div>
               <div className={styles.postDetails}>
-                <span>June 15 • 7 min read •</span>
+                <span>
+                  {new Date(post.data?.postedOn).toLocaleString("en-US", {
+                    day: "numeric",
+                    month: "short",
+                  })}
+                  • {post?.data?.postLength} min read •
+                </span>
                 <span className={styles.listenButton}>
                   <AiFillPlayCircle /> Listen
                 </span>
@@ -76,23 +82,19 @@ const ArticleMain = () => {
               width={100}
             />
           </div>
-          <h1 className={styles.title}>
-            7 Free Tools That Will Make You More Productive In 2022
-          </h1>
+          <h1 className={styles.title}>{post?.data?.title}</h1>
           <h4 className={styles.subtitle}>
-            <div>Harshal Savaliya, June 15, 2022</div>
-            <div>Brief: Productivity is a skill that can be learned</div>
+            <div>
+              {author?.data?.name},{" "}
+              {new Date(post.data?.postedOn).toLocaleString("en-US", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              })}
+            </div>
+            <div>Brief: {post?.data?.brief}</div>
           </h4>
-          <div className={styles.articleText}>
-            I love being productive every day as it helps me sort out all my
-            priorities very quickly. Being Productive is a superpower we all
-            must acquire early in our lives. So, for this same quest, I keep
-            searching for some of the best Productive tools that will help me to
-            stay productive all day long. So, here I have curated some of the
-            best Productive Tools that will also make you more productive so
-            that you can achieve most of the day very easily. Let&apos;s get
-            started.
-          </div>
+          <div className={styles.articleText}>{post?.data?.body}</div>
         </div>
       </div>
     </div>
