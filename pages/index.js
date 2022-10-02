@@ -2,6 +2,8 @@ import Banner from "../components/Banner";
 import Header from "../components/Header";
 import PostCard from "../components/PostCard";
 import Head from "next/head";
+import { useContext } from "react";
+import { MediumContext } from "../context/MediumContext";
 
 const styles = {
   wrapper: `mx-auto`,
@@ -11,6 +13,8 @@ const styles = {
 };
 
 export default function Home() {
+  const { posts } = useContext(MediumContext);
+
   return (
     <div className={styles.wrapper}>
       <Head>
@@ -23,7 +27,9 @@ export default function Home() {
         <div className={styles.main}>
           <div className={styles.container}>
             <div className={styles.postsList}>
-              <PostCard />
+              {posts.map((post) => (
+                <PostCard post={post} key={post.id} />
+              ))}
             </div>
           </div>
         </div>

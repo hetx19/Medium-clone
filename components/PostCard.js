@@ -2,6 +2,9 @@ import Image from "next/image";
 import Logo from "../static/logo.png";
 import Link from "next/link";
 import { FiBookmark } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const styles = {
   wrapper: `max-w-[46rem] h-[10rem] flex items-center gap-[1rem] cursor-pointer`,
@@ -19,15 +22,27 @@ const styles = {
   thumbnailContainer: `flex-1`,
 };
 
-const PostCard = () => {
+const PostCard = ({ post }) => {
+  const [authorData, setAuthorData] = useState(null);
+
+  useEffect(() => {
+    const getAuthorData = async () => {
+      setAuthorData(
+        await (await getDoc(doc(db, "users", post.data.author))).data()
+      );
+    };
+
+    getAuthorData();
+  }, [post]);
+
   return (
-    <Link href={`/post/1`}>
+    <Link href={`/post/${post.id}`}>
       <div className={styles.wrapper}>
         <div className={styles.postDetails}>
           <div className={styles.authorContainer}>
             <div className={styles.authorImageContainer}>
               <Image
-                src={Logo}
+                src={`https://res.cloudinary.com/demo/image/fetch/${authorData.imageUrl}`}
                 className={styles.authorImage}
                 height={40}
                 width={40}
