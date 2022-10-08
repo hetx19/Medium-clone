@@ -47,15 +47,16 @@ const Recommendations = ({ author }) => {
       <div className={styles.authorContainer}>
         <div className={styles.authorProfileImageContainer}>
           <Image
-            // src={`https://res.cloudinary.com/demo/image/fetch/${author[0].data.imageUrl}`}
-            src={Qazi}
+            src={`https://res.cloudinary.com/demo/image/fetch/${author?.data?.imageUrl}`}
             alt="author"
             width={100}
             height={100}
           />
         </div>
-        <div className={styles.authorName}>Harshal Savaliya</div>
-        <div className={styles.authorFollowing}>1M followers</div>
+        <div className={styles.authorName}>{author?.data?.name}</div>
+        <div className={styles.authorFollowing}>
+          {author?.data?.followerCount}
+        </div>
         <div className={styles.authorActions}>
           <button className={styles.actionButton}>Follow</button>
           <button className={styles.actionButton}>

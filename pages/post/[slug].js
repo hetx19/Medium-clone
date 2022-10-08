@@ -33,7 +33,7 @@ const Post = () => {
           <title>Medium | Harshal Savaliya</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <ReadersNav />
+        <ReadersNav author={author} />
         <ArticleMain post={post} author={author} />
         <Recommendations author={author} />
       </main>

@@ -6,10 +6,8 @@ import { GrLinkedin } from "react-icons/gr";
 import { HiOutlineLink } from "react-icons/hi";
 import { BiBookmarks } from "react-icons/bi";
 import { FiMoreHorizontal } from "react-icons/fi";
-import Author from "../static/author.jpg";
 import Thumbnail from "../static/thumbnail.webp";
 
-import Qazi from "../static/qazi.jpg";
 import Banner from "../static/banner.png";
 
 const styles = {
@@ -40,7 +38,7 @@ const ArticleMain = ({ post, author }) => {
             <div className={styles.authorProfileImageContainer}>
               <Image
                 className={styles.image}
-                src={Qazi}
+                src={`https://res.cloudinary.com/demo/image/fetch/${author?.data?.imageUrl}`}
                 alt="author"
                 width={100}
                 height={100}
@@ -53,7 +51,7 @@ const ArticleMain = ({ post, author }) => {
                   {new Date(post.data?.postedOn).toLocaleString("en-US", {
                     day: "numeric",
                     month: "short",
-                  })}
+                  })}{" "}
                   • {post?.data?.postLength} min read •
                 </span>
                 <span className={styles.listenButton}>
